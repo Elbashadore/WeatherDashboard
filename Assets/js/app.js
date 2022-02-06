@@ -34,6 +34,12 @@ var uviColorEl = document.createElement("p");
 var backgroundRed = {"background-color": "#E6777E"};
 var backgroundGreen = {"background-color": "#49E670"};
 var backgroundYellow = {"background-color": "yellow"};
+var forecastSelector =$(".forecast");
+var forecast0El = document.createElement("div");
+var forecast1El = document.createElement("div");
+var forecast2El = document.createElement("div");
+var forecast3El = document.createElement("div");
+var forecast4El = document.createElement("div");
 
  
 
@@ -86,6 +92,7 @@ function weatherSearch(data){
     .then(data =>{
         console.log(data);
         curWeather(data);
+        forecast(data)
     })
 }
 
@@ -180,6 +187,41 @@ function curWeather(data){
     console.log(currentTemp);
     console.log(currentWind);
     console.log(currentHumidity, currentUvi);
+}
+
+// function to display forecast 
+
+function forecast(data){
+
+    var forecastArray = [forecast0El, forecast1El,forecast2El, forecast3El, forecast4El]
+
+    for (i=0; i<5; i++){
+        forecastDay = data["daily"][i].dt
+        forecastDayEl = document.createElement("p");
+        $(forecastDay).text(`${forecastDay}`)
+       forecastTemp =  data["daily"][i].temp.max;
+       forecastTempEl = document.createElement("p");
+       $(forecastTempEl).text(`Temp ${forecastTemp} F`)
+       forecastWind = data["daily"][i].wind_speed;
+       forecastWindEl = document.createElement("p");
+       $(forecastWindEl).text(`Wind: ${forecastWind} MPH`)
+       forecastHumidity = data["daily"][i].humidity;
+       forecastHumidityEl = document.createElement("p");
+       $(forecastHumidityEl).text(`Humidity ${forecastHumidity} %`)
+
+       forecastArray[i].append(forecastDayEl);
+       forecastArray[i].append(forecastTempEl);
+       forecastArray[i].append(forecastWindEl);
+       forecastArray[i].append(forecastHumidityEl);
+       forecastSelector.append(forecastArray[i]);
+
+
+       console.log(forecastDay, forecastTemp, forecastWind, forecastHumidity);
+    }
+
+
+   
+
 }
 
 // API Calls
