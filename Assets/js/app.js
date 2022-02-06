@@ -22,6 +22,19 @@ var liElement6 = document.createElement("li");
 var liElement7 = document.createElement("li");
 var liElement8 = document.createElement("li");
 var liElement9 = document.createElement("li");
+var currentWeatherSelector = $(".currentWeather");
+var currentWeather = document.createElement("div");
+var currentTempEl = document.createElement("p");
+var currentWindEl = document.createElement("p");
+var currentHumidityEl = document.createElement("p");
+var currentUviEl = document.createElement("div");
+var placeDateEl = document.createElement("p");
+var cityName = cityNameSelector.val();
+var uviColorEl = document.createElement("p");
+var backgroundRed = {"background-color": "#E6777E"};
+var backgroundGreen = {"background-color": "#49E670"};
+var backgroundYellow = {"background-color": "yellow"};
+
  
 
 // DOM Manipulators 
@@ -43,8 +56,6 @@ function geocde(event){
 pastSearches();
 var cityName = cityNameSelector.val();
 var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
-alert(cityName);
-alert(geocodeUrl);
 event.preventDefault();
 fetch(geocodeUrl)
     .then(function(res) {
@@ -65,7 +76,7 @@ fetch(geocodeUrl)
 function weatherSearch(data){
     var latitude = data[0].lat;
     var longitude = data[0].lon;
-    weatherApiUrl = "https://api.openweathermap.org/data/2.5/onecall?" + "lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey;
+    weatherApiUrl = "https://api.openweathermap.org/data/2.5/onecall?" + "lat=" + latitude + "&lon=" + longitude + "&units=imperial" + "&appid=" + apiKey;
     fetch(weatherApiUrl)
     .then(response =>{
         if(response.ok){
@@ -74,6 +85,7 @@ function weatherSearch(data){
     })
     .then(data =>{
         console.log(data);
+        curWeather(data);
     })
 }
 
@@ -116,6 +128,58 @@ for (i=0; i<pastSearch.length; i++) {
 }
     
 
+}
+
+
+// function to display current weather to the page
+
+function curWeather(data){
+    var placeDate = data["current"].dt;
+    var miliseconds = placeDate * 1000
+    var dateObject = new Date(miliseconds);
+    var currentTemp = data["current"].temp;
+    var currentWind = data["current"].wind_speed;
+    var currentHumidity = data["current"].humidity;
+    var currentUvi = data["current"].uvi;
+
+    $(currentTempEl).text(`Temp: ${currentTemp} F`);
+    $(currentWindEl).text(`Wind: ${currentWind} MPH`);
+    $(currentHumidityEl).text(`Humidity: ${currentHumidity} %`);
+    $(uviColorEl).text(`UV Index ${currentUvi}`);
+    $(placeDateEl).text(`${cityName} ${dateObject}`);
+
+    currentWeatherSelector.append(currentWeather);
+    currentWeather.append(placeDateEl);
+    currentWeather.append(currentTempEl);
+    currentWeather.append(currentWindEl);
+    currentWeather.append(currentHumidityEl);
+    currentWeather.append(currentUviEl);
+    currentUviEl.append(uviColorEl);
+    
+
+    currentWeather.classList.add("weatherStyle");
+
+    currentTempEl.classList.add("currentWeatherCard");
+    currentWindEl.classList.add("currentWeatherCard");
+    currentHumidityEl.classList.add("currentWeatherCard");
+    currentUviEl.classList.add("currentWeatherCard");
+    uviColorEl.classList.add("uviColor");
+
+
+    if (currentUvi <= 2){
+        $(uviColorEl).css(backgroundGreen);
+    }
+    else if (currentUvi > 2 && currentUvi <= 5) {
+        $(uviColorEl).css(backgroundYellow);
+    }
+    else {
+        $(uviColorEl).css(backgroundRed);
+    }
+
+
+    console.log(currentTemp);
+    console.log(currentWind);
+    console.log(currentHumidity, currentUvi);
 }
 
 // API Calls

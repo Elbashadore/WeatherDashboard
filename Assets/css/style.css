@@ -26,5 +26,32 @@ body {
   .cardStyle{
     background-color:rgb(107, 107, 107);
     border-radius:15px;
-    margin: 0 -50px 0 50px;
+    margin: 5px -50px 5px 50px;
+
+  }
+
+  .currentWeather{
+    text-align: center;
+    background-color:rgb(107, 107, 107);
+    font-size: 25px;
+    color:#1a1a1a;
+  }
+
+  .weatherStyle{
+    font-size:30px;
+    height:53rem;
+    background-color:rgb(107, 107, 107);
+    border-radius:15px;
+  }
+
+  .currentWeatherCard{
+    color:#1a1a1a;
+    background-color:#7c8281;
+    height:5rem;
+    padding:24px;
+  }
+
+  .uviColor{
+    justify-content: center;
+    margin: -1rem 35rem;
   }
