@@ -1,0 +1,30 @@
+body {
+    font-family: 'Fira Sans', sans-serif;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+  }
+  
+
+  ol{
+    justify-content: center;
+  }
+
+  li {
+    list-style-type: none;
+    text-align: center;
+
+  }
+
+  .cardStyle{
+    background-color:rgb(107, 107, 107);
+    border-radius:15px;
+    margin: 0 -50px 0 50px;
+  }
