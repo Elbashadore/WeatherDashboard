@@ -55,3 +55,10 @@ body {
     justify-content: center;
     margin: -1rem 35rem;
   }
+
+  .forecastCard{
+    background-color:rgb(107, 107, 107);
+    border-radius:15px;
+    padding: 10px;
+    margin: 5px;
+  }

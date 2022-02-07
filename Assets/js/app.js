@@ -41,6 +41,8 @@ var forecast2El = document.createElement("div");
 var forecast3El = document.createElement("div");
 var forecast4El = document.createElement("div");
 
+
+
  
 
 // DOM Manipulators 
@@ -92,6 +94,11 @@ function weatherSearch(data){
     .then(data =>{
         console.log(data);
         curWeather(data);
+        // forecast0El = "";
+        // forecast1El = "";
+        // forecast2El = "";
+        // forecast3El = "";
+        // forecast4El = "";
         forecast(data)
     })
 }
@@ -148,15 +155,21 @@ function curWeather(data){
     var currentWind = data["current"].wind_speed;
     var currentHumidity = data["current"].humidity;
     var currentUvi = data["current"].uvi;
+    var currentIcon = data["current"].weather[0].icon;
+
+  var icon = document.createElement("img");
+    img.src = "http://openweathermap.org/img/wn/" + currentIcon + "@2x.png";
 
     $(currentTempEl).text(`Temp: ${currentTemp} F`);
     $(currentWindEl).text(`Wind: ${currentWind} MPH`);
     $(currentHumidityEl).text(`Humidity: ${currentHumidity} %`);
     $(uviColorEl).text(`UV Index ${currentUvi}`);
     $(placeDateEl).text(`${cityName} ${dateObject}`);
+    
 
     currentWeatherSelector.append(currentWeather);
     currentWeather.append(placeDateEl);
+    currentWeather.append(icon);
     currentWeather.append(currentTempEl);
     currentWeather.append(currentWindEl);
     currentWeather.append(currentHumidityEl);
@@ -195,10 +208,20 @@ function forecast(data){
 
     var forecastArray = [forecast0El, forecast1El,forecast2El, forecast3El, forecast4El]
 
+
     for (i=0; i<5; i++){
+        
+
+        
+
+
+
+
         forecastDay = data["daily"][i].dt
         forecastDayEl = document.createElement("p");
-        $(forecastDay).text(`${forecastDay}`)
+        var miliseconds = forecastDay * 1000
+        var dateObject = new Date(miliseconds);
+        $(forecastDayEl).text(`${dateObject}`)
        forecastTemp =  data["daily"][i].temp.max;
        forecastTempEl = document.createElement("p");
        $(forecastTempEl).text(`Temp ${forecastTemp} F`)
@@ -209,10 +232,9 @@ function forecast(data){
        forecastHumidityEl = document.createElement("p");
        $(forecastHumidityEl).text(`Humidity ${forecastHumidity} %`)
 
-       forecastArray[i].append(forecastDayEl);
-       forecastArray[i].append(forecastTempEl);
-       forecastArray[i].append(forecastWindEl);
-       forecastArray[i].append(forecastHumidityEl);
+        forecastArray[i].classList.add("forecastCard")
+
+       forecastArray[i].replaceChildren(forecastDayEl, forecastTempEl, forecastWindEl, forecastHumidityEl);
        forecastSelector.append(forecastArray[i]);
 
 
