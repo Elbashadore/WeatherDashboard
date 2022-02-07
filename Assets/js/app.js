@@ -24,6 +24,7 @@ var liElement8 = document.createElement("li");
 var liElement9 = document.createElement("li");
 var currentWeatherSelector = $(".currentWeather");
 var currentWeather = document.createElement("div");
+var wiconEl = document.createElement("img");
 var currentTempEl = document.createElement("p");
 var currentWindEl = document.createElement("p");
 var currentHumidityEl = document.createElement("p");
@@ -157,8 +158,9 @@ function curWeather(data){
     var currentUvi = data["current"].uvi;
     var currentIcon = data["current"].weather[0].icon;
 
-  var icon = document.createElement("img");
-    img.src = "http://openweathermap.org/img/wn/" + currentIcon + "@2x.png";
+    var iconUrl = "http://openweathermap.org/img/wn/" + currentIcon + ".png";
+    console.log(iconUrl);
+    // http://openweathermap.org/img/wn/10d@2x.png
 
     $(currentTempEl).text(`Temp: ${currentTemp} F`);
     $(currentWindEl).text(`Wind: ${currentWind} MPH`);
@@ -169,7 +171,7 @@ function curWeather(data){
 
     currentWeatherSelector.append(currentWeather);
     currentWeather.append(placeDateEl);
-    currentWeather.append(icon);
+    currentWeather.append(wiconEl);
     currentWeather.append(currentTempEl);
     currentWeather.append(currentWindEl);
     currentWeather.append(currentHumidityEl);
@@ -178,7 +180,9 @@ function curWeather(data){
     
 
     currentWeather.classList.add("weatherStyle");
-
+    $(wiconEl).attr("id", "wicon");
+    $(wiconEl).attr("src", iconUrl);
+    $(wiconEl).attr("alt", "weather icon");
     currentTempEl.classList.add("currentWeatherCard");
     currentWindEl.classList.add("currentWeatherCard");
     currentHumidityEl.classList.add("currentWeatherCard");
@@ -218,6 +222,12 @@ function forecast(data){
 
 
         forecastDay = data["daily"][i].dt
+        forecastWicon = data["daily"][i]["weather"][0].icon
+        var forecastIconUrl = "http://openweathermap.org/img/wn/" + forecastWicon + ".png";
+        forecastWiconEl = document.createElement("img")
+        $(forecastWiconEl).attr("id", "wicon");
+        $(forecastWiconEl).attr("src", forecastIconUrl);
+        $(forecastWiconEl).attr("alt", "weather icon");
         forecastDayEl = document.createElement("p");
         var miliseconds = forecastDay * 1000
         var dateObject = new Date(miliseconds);
@@ -234,7 +244,7 @@ function forecast(data){
 
         forecastArray[i].classList.add("forecastCard")
 
-       forecastArray[i].replaceChildren(forecastDayEl, forecastTempEl, forecastWindEl, forecastHumidityEl);
+       forecastArray[i].replaceChildren(forecastWiconEl, forecastDayEl, forecastTempEl, forecastWindEl, forecastHumidityEl);
        forecastSelector.append(forecastArray[i]);
 
 
