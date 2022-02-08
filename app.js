@@ -161,7 +161,7 @@ function curWeather(data){
     var currentIcon = data["current"].weather[0].icon;
      cityName = cityNameSelector.val();
 
-    var iconUrl = "http://openweathermap.org/img/wn/" + currentIcon + ".png";
+    var iconUrl = "https://openweathermap.org/img/wn/" + currentIcon + ".png";
     console.log(iconUrl);
     // http://openweathermap.org/img/wn/10d@2x.png
 
@@ -280,7 +280,7 @@ function forecast(data){
 
         forecastDay = data["daily"][i].dt
         forecastWicon = data["daily"][i]["weather"][0].icon
-        var forecastIconUrl = "http://openweathermap.org/img/wn/" + forecastWicon + ".png";
+        var forecastIconUrl = "https://openweathermap.org/img/wn/" + forecastWicon + ".png";
         forecastWiconEl = document.createElement("img")
         $(forecastWiconEl).attr("id", "wicon");
         $(forecastWiconEl).attr("src", forecastIconUrl);
@@ -358,7 +358,7 @@ $(liElement0).on("click",function(event){
         }
     }
 var cityName = pastSearch[0];
-var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+var geocodeUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
 event.preventDefault();
 fetch(geocodeUrl)
     .then(function(res) {
@@ -411,7 +411,7 @@ $(liElement1).on("click", function(event){
         }
     }
     var cityName = pastSearch[1];
-    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    var geocodeUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
     event.preventDefault();
     fetch(geocodeUrl)
         .then(function(res) {
@@ -465,7 +465,7 @@ $(liElement2).on("click", function(event){
         }
     }
     var cityName = pastSearch[2];
-    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    var geocodeUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
     event.preventDefault();
     fetch(geocodeUrl)
         .then(function(res) {
@@ -518,7 +518,7 @@ $(liElement3).on("click", function(event){
         }
     }
     var cityName = pastSearch[3];
-    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    var geocodeUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
     event.preventDefault();
     fetch(geocodeUrl)
         .then(function(res) {
@@ -571,7 +571,7 @@ $(liElement4).on("click", function(event){
         }
     }
     var cityName = pastSearch[4];
-    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    var geocodeUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
     event.preventDefault();
     fetch(geocodeUrl)
         .then(function(res) {
@@ -624,7 +624,7 @@ $(liElement5).on("click", function(event){
         }
     }
     var cityName = pastSearch[5];
-    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    var geocodeUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
     event.preventDefault();
     fetch(geocodeUrl)
         .then(function(res) {
@@ -677,7 +677,7 @@ $(liElement6).on("click", function(event){
         }
     }
     var cityName = pastSearch[6];
-    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    var geocodeUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
     event.preventDefault();
     fetch(geocodeUrl)
         .then(function(res) {
@@ -730,7 +730,7 @@ $(liElement7).on("click", function(event){
         }
     }
     var cityName = pastSearch[7];
-    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    var geocodeUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
     event.preventDefault();
     fetch(geocodeUrl)
         .then(function(res) {
@@ -783,7 +783,7 @@ $(liElement8).on("click", function(event){
         }
     }
     var cityName = pastSearch[8];
-    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    var geocodeUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
     event.preventDefault();
     fetch(geocodeUrl)
         .then(function(res) {
@@ -836,7 +836,7 @@ $(liElement9).on("click", function(event){
         }
     }
     var cityName = pastSearch[9];
-    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    var geocodeUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
     event.preventDefault();
     fetch(geocodeUrl)
         .then(function(res) {
