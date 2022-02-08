@@ -41,6 +41,8 @@ var forecast1El = document.createElement("div");
 var forecast2El = document.createElement("div");
 var forecast3El = document.createElement("div");
 var forecast4El = document.createElement("div");
+var past = false;
+var namei = "";
 
 
 
@@ -157,6 +159,7 @@ function curWeather(data){
     var currentHumidity = data["current"].humidity;
     var currentUvi = data["current"].uvi;
     var currentIcon = data["current"].weather[0].icon;
+     cityName = cityNameSelector.val();
 
     var iconUrl = "http://openweathermap.org/img/wn/" + currentIcon + ".png";
     console.log(iconUrl);
@@ -166,7 +169,7 @@ function curWeather(data){
     $(currentWindEl).text(`Wind: ${currentWind} MPH`);
     $(currentHumidityEl).text(`Humidity: ${currentHumidity} %`);
     $(uviColorEl).text(`UV Index ${currentUvi}`);
-    $(placeDateEl).text(`${cityName} ${dateObject}`);
+   
     
 
     currentWeatherSelector.append(currentWeather);
@@ -189,6 +192,60 @@ function curWeather(data){
     currentUviEl.classList.add("currentWeatherCard");
     uviColorEl.classList.add("uviColor");
 
+
+    if (past == true && namei == 1){
+        cityName = pastSearch[0];
+        $(placeDateEl).text(`${cityName} ${dateObject}`);
+
+    }
+    else if(past == true && namei == 2) {
+        cityName = pastSearch[1]
+     $(placeDateEl).text(`${cityName} ${dateObject}`);}
+
+    else if(past == true && namei ==3){
+        cityName = pastSearch[2];
+        $(placeDateEl).text(`${cityName} ${dateObject}`);
+    }
+
+    else if(past == true && namei ==4){
+        cityName = pastSearch[3];
+        $(placeDateEl).text(`${cityName} ${dateObject}`);
+    }
+
+    else if(past == true && namei ==5){
+        cityName = pastSearch[4];
+        $(placeDateEl).text(`${cityName} ${dateObject}`);
+    }
+
+    else if(past == true && namei ==6){
+        cityName = pastSearch[5];
+        $(placeDateEl).text(`${cityName} ${dateObject}`);
+    }
+
+    else if(past == true && namei ==7){
+        cityName = pastSearch[6];
+        $(placeDateEl).text(`${cityName} ${dateObject}`);
+    }
+
+    else if(past == true && namei ==8){
+        cityName = pastSearch[7];
+        $(placeDateEl).text(`${cityName} ${dateObject}`);
+    }
+
+    else if(past == true && namei ==9){
+        cityName = pastSearch[8];
+        $(placeDateEl).text(`${cityName} ${dateObject}`);
+    }
+
+    // else if(past == true && namei ==9){
+    //     cityName = pastSearch[9];
+    //     $(placeDateEl).text(`${cityName} ${dateObject}`);
+    // }
+
+    else {$(placeDateEl).text(`${cityName} ${dateObject}`);}
+
+    past = false;
+    namei = ""
 
     if (currentUvi <= 2){
         $(uviColorEl).css(backgroundGreen);
@@ -229,9 +286,13 @@ function forecast(data){
         $(forecastWiconEl).attr("src", forecastIconUrl);
         $(forecastWiconEl).attr("alt", "weather icon");
         forecastDayEl = document.createElement("p");
-        var miliseconds = forecastDay * 1000
-        var dateObject = new Date(miliseconds);
-        $(forecastDayEl).text(`${dateObject}`)
+        var d = new Date(forecastDay * 1000);
+        d.toDateString();
+        // var miliseconds = forecastDay * 1000
+        // var dateObject = new Date(miliseconds);
+        // dateObject.toISOString().split('T')[0]
+        // var dateObject = new Date(miliseconds);
+        $(forecastDayEl).text(` ${cityName} ${d}`)
        forecastTemp =  data["daily"][i].temp.max;
        forecastTempEl = document.createElement("p");
        $(forecastTempEl).text(`Temp ${forecastTemp} F`)
@@ -255,6 +316,543 @@ function forecast(data){
    
 
 }
+
+
+// search histroy api calls
+$(liElement0).on("click",function(event){
+    namei = 0
+    pastSearch.unshift(pastSearch[0]);
+    console.log(pastSearch);
+    $(liElement0).text(pastSearch[0]);
+    $(liElement1).text(pastSearch[1]); 
+    $(liElement2).text(pastSearch[2]);
+    $(liElement3).text(pastSearch[3]);
+    $(liElement4).text(pastSearch[4]);
+    $(liElement5).text(pastSearch[5]);
+    $(liElement6).text(pastSearch[6]);
+    $(liElement7).text(pastSearch[7]);
+    $(liElement8).text(pastSearch[8]);
+    $(liElement9).text(pastSearch[9]);
+    h2.append(searchResults);
+    searchResults.append(olElement);
+    olElement.append(liElement0);
+    olElement.append(liElement1);
+    olElement.append(liElement2);
+    olElement.append(liElement3);
+    olElement.append(liElement4);
+    olElement.append(liElement5);
+    olElement.append(liElement6);
+    olElement.append(liElement7);
+    olElement.append(liElement8);
+    olElement.append(liElement9);
+    
+
+    
+    
+    liElementArray = [liElement0, liElement1, liElement2, liElement3, liElement4, liElement5, liElement6, liElement7, liElement8, liElement9]
+    
+    for (i=0; i<pastSearch.length; i++) {
+        if (pastSearch[i] !== ""){
+            liElementArray[i].classList.add("cardStyle")
+            
+        }
+    }
+var cityName = pastSearch[0];
+var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+event.preventDefault();
+fetch(geocodeUrl)
+    .then(function(res) {
+        if (res.ok){
+            return res.json();
+        }   
+    })
+    .then(function(data) {
+        console.log(data[0].lat);
+        console.log(data[0].lon);
+        past = true;
+        weatherSearch(data, past)
+    })
+
+
+})
+$(liElement1).on("click", function(event){
+    namei = 1
+    pastSearch.unshift(pastSearch[1]);
+    console.log(pastSearch);
+    $(liElement0).text(pastSearch[0]);
+    $(liElement1).text(pastSearch[1]); 
+    $(liElement2).text(pastSearch[2]);
+    $(liElement3).text(pastSearch[3]);
+    $(liElement4).text(pastSearch[4]);
+    $(liElement5).text(pastSearch[5]);
+    $(liElement6).text(pastSearch[6]);
+    $(liElement7).text(pastSearch[7]);
+    $(liElement8).text(pastSearch[8]);
+    $(liElement9).text(pastSearch[9]);
+    h2.append(searchResults);
+    searchResults.append(olElement);
+    olElement.append(liElement0);
+    olElement.append(liElement1);
+    olElement.append(liElement2);
+    olElement.append(liElement3);
+    olElement.append(liElement4);
+    olElement.append(liElement5);
+    olElement.append(liElement6);
+    olElement.append(liElement7);
+    olElement.append(liElement8);
+    olElement.append(liElement9);
+    
+    liElementArray = [liElement0, liElement1, liElement2, liElement3, liElement4, liElement5, liElement6, liElement7, liElement8, liElement9]
+    
+    for (i=0; i<pastSearch.length; i++) {
+        if (pastSearch[i] !== ""){
+            liElementArray[i].classList.add("cardStyle")
+            
+        }
+    }
+    var cityName = pastSearch[1];
+    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    event.preventDefault();
+    fetch(geocodeUrl)
+        .then(function(res) {
+            if (res.ok){
+                return res.json();
+            }   
+        })
+        .then(function(data) {
+            console.log(data[0].lat);
+            console.log(data[0].lon);
+            past = true;
+            weatherSearch(data)
+        })
+    
+    
+    })
+
+$(liElement2).on("click", function(event){
+    pastSearch.unshift(pastSearch[2]);
+    namei = 2
+    console.log(pastSearch);
+    $(liElement0).text(pastSearch[0]);
+    $(liElement1).text(pastSearch[1]); 
+    $(liElement2).text(pastSearch[2]);
+    $(liElement3).text(pastSearch[3]);
+    $(liElement4).text(pastSearch[4]);
+    $(liElement5).text(pastSearch[5]);
+    $(liElement6).text(pastSearch[6]);
+    $(liElement7).text(pastSearch[7]);
+    $(liElement8).text(pastSearch[8]);
+    $(liElement9).text(pastSearch[9]);
+    h2.append(searchResults);
+    searchResults.append(olElement);
+    olElement.append(liElement0);
+    olElement.append(liElement1);
+    olElement.append(liElement2);
+    olElement.append(liElement3);
+    olElement.append(liElement4);
+    olElement.append(liElement5);
+    olElement.append(liElement6);
+    olElement.append(liElement7);
+    olElement.append(liElement8);
+    olElement.append(liElement9);
+    
+    liElementArray = [liElement0, liElement1, liElement2, liElement3, liElement4, liElement5, liElement6, liElement7, liElement8, liElement9]
+    
+    for (i=0; i<pastSearch.length; i++) {
+        if (pastSearch[i] !== ""){
+            liElementArray[i].classList.add("cardStyle")
+            
+        }
+    }
+    var cityName = pastSearch[2];
+    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    event.preventDefault();
+    fetch(geocodeUrl)
+        .then(function(res) {
+            if (res.ok){
+                return res.json();
+            }   
+        })
+        .then(function(data) {
+            console.log(data[0].lat);
+            console.log(data[0].lon);
+            past = true;
+            weatherSearch(data)
+        })
+    
+    
+    })
+$(liElement3).on("click", function(event){
+    namei = 3;
+    pastSearch.unshift(pastSearch[3]);
+    console.log(pastSearch);
+    $(liElement0).text(pastSearch[0]);
+    $(liElement1).text(pastSearch[1]); 
+    $(liElement2).text(pastSearch[2]);
+    $(liElement3).text(pastSearch[3]);
+    $(liElement4).text(pastSearch[4]);
+    $(liElement5).text(pastSearch[5]);
+    $(liElement6).text(pastSearch[6]);
+    $(liElement7).text(pastSearch[7]);
+    $(liElement8).text(pastSearch[8]);
+    $(liElement9).text(pastSearch[9]);
+    h2.append(searchResults);
+    searchResults.append(olElement);
+    olElement.append(liElement0);
+    olElement.append(liElement1);
+    olElement.append(liElement2);
+    olElement.append(liElement3);
+    olElement.append(liElement4);
+    olElement.append(liElement5);
+    olElement.append(liElement6);
+    olElement.append(liElement7);
+    olElement.append(liElement8);
+    olElement.append(liElement9);
+    
+    liElementArray = [liElement0, liElement1, liElement2, liElement3, liElement4, liElement5, liElement6, liElement7, liElement8, liElement9]
+    
+    for (i=0; i<pastSearch.length; i++) {
+        if (pastSearch[i] !== ""){
+            liElementArray[i].classList.add("cardStyle")
+            
+        }
+    }
+    var cityName = pastSearch[3];
+    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    event.preventDefault();
+    fetch(geocodeUrl)
+        .then(function(res) {
+            if (res.ok){
+                return res.json();
+            }   
+        })
+        .then(function(data) {
+            console.log(data[0].lat);
+            console.log(data[0].lon);
+            past = true;
+            weatherSearch(data)
+        })
+    
+    
+    })
+$(liElement4).on("click", function(event){
+    pastSearch.unshift(pastSearch[4]);
+    namei = 4;
+    console.log(pastSearch);
+    $(liElement0).text(pastSearch[0]);
+    $(liElement1).text(pastSearch[1]); 
+    $(liElement2).text(pastSearch[2]);
+    $(liElement3).text(pastSearch[3]);
+    $(liElement4).text(pastSearch[4]);
+    $(liElement5).text(pastSearch[5]);
+    $(liElement6).text(pastSearch[6]);
+    $(liElement7).text(pastSearch[7]);
+    $(liElement8).text(pastSearch[8]);
+    $(liElement9).text(pastSearch[9]);
+    h2.append(searchResults);
+    searchResults.append(olElement);
+    olElement.append(liElement0);
+    olElement.append(liElement1);
+    olElement.append(liElement2);
+    olElement.append(liElement3);
+    olElement.append(liElement4);
+    olElement.append(liElement5);
+    olElement.append(liElement6);
+    olElement.append(liElement7);
+    olElement.append(liElement8);
+    olElement.append(liElement9);
+    
+    liElementArray = [liElement0, liElement1, liElement2, liElement3, liElement4, liElement5, liElement6, liElement7, liElement8, liElement9]
+    
+    for (i=0; i<pastSearch.length; i++) {
+        if (pastSearch[i] !== ""){
+            liElementArray[i].classList.add("cardStyle")
+            
+        }
+    }
+    var cityName = pastSearch[4];
+    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    event.preventDefault();
+    fetch(geocodeUrl)
+        .then(function(res) {
+            if (res.ok){
+                return res.json();
+            }   
+        })
+        .then(function(data) {
+            console.log(data[0].lat);
+            console.log(data[0].lon);
+            past = true;
+            weatherSearch(data)
+        })
+    
+    
+    })
+$(liElement5).on("click", function(event){
+    namei = 5;
+    pastSearch.unshift(pastSearch[5]);
+    console.log(pastSearch);
+    $(liElement0).text(pastSearch[0]);
+    $(liElement1).text(pastSearch[1]); 
+    $(liElement2).text(pastSearch[2]);
+    $(liElement3).text(pastSearch[3]);
+    $(liElement4).text(pastSearch[4]);
+    $(liElement5).text(pastSearch[5]);
+    $(liElement6).text(pastSearch[6]);
+    $(liElement7).text(pastSearch[7]);
+    $(liElement8).text(pastSearch[8]);
+    $(liElement9).text(pastSearch[9]);
+    h2.append(searchResults);
+    searchResults.append(olElement);
+    olElement.append(liElement0);
+    olElement.append(liElement1);
+    olElement.append(liElement2);
+    olElement.append(liElement3);
+    olElement.append(liElement4);
+    olElement.append(liElement5);
+    olElement.append(liElement6);
+    olElement.append(liElement7);
+    olElement.append(liElement8);
+    olElement.append(liElement9);
+    
+    liElementArray = [liElement0, liElement1, liElement2, liElement3, liElement4, liElement5, liElement6, liElement7, liElement8, liElement9]
+    
+    for (i=0; i<pastSearch.length; i++) {
+        if (pastSearch[i] !== ""){
+            liElementArray[i].classList.add("cardStyle")
+            
+        }
+    }
+    var cityName = pastSearch[5];
+    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    event.preventDefault();
+    fetch(geocodeUrl)
+        .then(function(res) {
+            if (res.ok){
+                return res.json();
+            }   
+        })
+        .then(function(data) {
+            console.log(data[0].lat);
+            console.log(data[0].lon);
+            past = true;
+            weatherSearch(data)
+        })
+    
+    
+    })
+$(liElement6).on("click", function(event){
+    pastSearch.unshift(pastSearch[6]);
+    namei = 6;
+    console.log(pastSearch);
+    $(liElement0).text(pastSearch[0]);
+    $(liElement1).text(pastSearch[1]); 
+    $(liElement2).text(pastSearch[2]);
+    $(liElement3).text(pastSearch[3]);
+    $(liElement4).text(pastSearch[4]);
+    $(liElement5).text(pastSearch[5]);
+    $(liElement6).text(pastSearch[6]);
+    $(liElement7).text(pastSearch[7]);
+    $(liElement8).text(pastSearch[8]);
+    $(liElement9).text(pastSearch[9]);
+    h2.append(searchResults);
+    searchResults.append(olElement);
+    olElement.append(liElement0);
+    olElement.append(liElement1);
+    olElement.append(liElement2);
+    olElement.append(liElement3);
+    olElement.append(liElement4);
+    olElement.append(liElement5);
+    olElement.append(liElement6);
+    olElement.append(liElement7);
+    olElement.append(liElement8);
+    olElement.append(liElement9);
+    
+    liElementArray = [liElement0, liElement1, liElement2, liElement3, liElement4, liElement5, liElement6, liElement7, liElement8, liElement9]
+    
+    for (i=0; i<pastSearch.length; i++) {
+        if (pastSearch[i] !== ""){
+            liElementArray[i].classList.add("cardStyle")
+            
+        }
+    }
+    var cityName = pastSearch[6];
+    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    event.preventDefault();
+    fetch(geocodeUrl)
+        .then(function(res) {
+            if (res.ok){
+                return res.json();
+            }   
+        })
+        .then(function(data) {
+            console.log(data[0].lat);
+            console.log(data[0].lon);
+            past = true;
+            weatherSearch(data)
+        })
+    
+    
+    })
+$(liElement7).on("click", function(event){
+    namei = 7;
+    pastSearch.unshift(pastSearch[0]);
+    console.log(pastSearch);
+    $(liElement0).text(pastSearch[0]);
+    $(liElement1).text(pastSearch[1]); 
+    $(liElement2).text(pastSearch[2]);
+    $(liElement3).text(pastSearch[3]);
+    $(liElement4).text(pastSearch[4]);
+    $(liElement5).text(pastSearch[5]);
+    $(liElement6).text(pastSearch[6]);
+    $(liElement7).text(pastSearch[7]);
+    $(liElement8).text(pastSearch[8]);
+    $(liElement9).text(pastSearch[9]);
+    h2.append(searchResults);
+    searchResults.append(olElement);
+    olElement.append(liElement0);
+    olElement.append(liElement1);
+    olElement.append(liElement2);
+    olElement.append(liElement3);
+    olElement.append(liElement4);
+    olElement.append(liElement5);
+    olElement.append(liElement6);
+    olElement.append(liElement7);
+    olElement.append(liElement8);
+    olElement.append(liElement9);
+    
+    liElementArray = [liElement0, liElement1, liElement2, liElement3, liElement4, liElement5, liElement6, liElement7, liElement8, liElement9]
+    
+    for (i=0; i<pastSearch.length; i++) {
+        if (pastSearch[i] !== ""){
+            liElementArray[i].classList.add("cardStyle")
+            
+        }
+    }
+    var cityName = pastSearch[7];
+    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    event.preventDefault();
+    fetch(geocodeUrl)
+        .then(function(res) {
+            if (res.ok){
+                return res.json();
+            }   
+        })
+        .then(function(data) {
+            console.log(data[0].lat);
+            console.log(data[0].lon);
+            past = true;
+            weatherSearch(data)
+        })
+    
+    
+    })
+$(liElement8).on("click", function(event){
+    pastSearch.unshift(pastSearch[8]);
+    namei = 8;
+    console.log(pastSearch);
+    $(liElement0).text(pastSearch[0]);
+    $(liElement1).text(pastSearch[1]); 
+    $(liElement2).text(pastSearch[2]);
+    $(liElement3).text(pastSearch[3]);
+    $(liElement4).text(pastSearch[4]);
+    $(liElement5).text(pastSearch[5]);
+    $(liElement6).text(pastSearch[6]);
+    $(liElement7).text(pastSearch[7]);
+    $(liElement8).text(pastSearch[8]);
+    $(liElement9).text(pastSearch[9]);
+    h2.append(searchResults);
+    searchResults.append(olElement);
+    olElement.append(liElement0);
+    olElement.append(liElement1);
+    olElement.append(liElement2);
+    olElement.append(liElement3);
+    olElement.append(liElement4);
+    olElement.append(liElement5);
+    olElement.append(liElement6);
+    olElement.append(liElement7);
+    olElement.append(liElement8);
+    olElement.append(liElement9);
+    
+    liElementArray = [liElement0, liElement1, liElement2, liElement3, liElement4, liElement5, liElement6, liElement7, liElement8, liElement9]
+    
+    for (i=0; i<pastSearch.length; i++) {
+        if (pastSearch[i] !== ""){
+            liElementArray[i].classList.add("cardStyle")
+            
+        }
+    }
+    var cityName = pastSearch[8];
+    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    event.preventDefault();
+    fetch(geocodeUrl)
+        .then(function(res) {
+            if (res.ok){
+                return res.json();
+            }   
+        })
+        .then(function(data) {
+            console.log(data[0].lat);
+            console.log(data[0].lon);
+            past = true;
+            weatherSearch(data)
+        })
+    
+    
+    })
+$(liElement9).on("click", function(event){
+    pastSearch.unshift(pastSearch[9]);
+    namei = 9;
+    console.log(pastSearch);
+    $(liElement0).text(pastSearch[0]);
+    $(liElement1).text(pastSearch[1]); 
+    $(liElement2).text(pastSearch[2]);
+    $(liElement3).text(pastSearch[3]);
+    $(liElement4).text(pastSearch[4]);
+    $(liElement5).text(pastSearch[5]);
+    $(liElement6).text(pastSearch[6]);
+    $(liElement7).text(pastSearch[7]);
+    $(liElement8).text(pastSearch[8]);
+    $(liElement9).text(pastSearch[9]);
+    h2.append(searchResults);
+    searchResults.append(olElement);
+    olElement.append(liElement0);
+    olElement.append(liElement1);
+    olElement.append(liElement2);
+    olElement.append(liElement3);
+    olElement.append(liElement4);
+    olElement.append(liElement5);
+    olElement.append(liElement6);
+    olElement.append(liElement7);
+    olElement.append(liElement8);
+    olElement.append(liElement9);
+    
+    liElementArray = [liElement0, liElement1, liElement2, liElement3, liElement4, liElement5, liElement6, liElement7, liElement8, liElement9]
+    
+    for (i=0; i<pastSearch.length; i++) {
+        if (pastSearch[i] !== ""){
+            liElementArray[i].classList.add("cardStyle")
+            
+        }
+    }
+    var cityName = pastSearch[9];
+    var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+    event.preventDefault();
+    fetch(geocodeUrl)
+        .then(function(res) {
+            if (res.ok){
+                return res.json();
+            }   
+        })
+        .then(function(data) {
+            console.log(data[0].lat);
+            console.log(data[0].lon);
+            past = true;
+            weatherSearch(data)
+        })
+    
+    
+    })
 
 // API Calls
 

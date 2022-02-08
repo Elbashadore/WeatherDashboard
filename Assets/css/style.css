@@ -27,6 +27,7 @@ body {
     background-color:rgb(107, 107, 107);
     border-radius:15px;
     margin: 5px -50px 5px 50px;
+    cursor:pointer;
 
   }
 
@@ -53,7 +54,6 @@ body {
 
   .uviColor{
     justify-content: center;
-    margin: 0rem 25rem;
   }
 
   .forecastCard{
