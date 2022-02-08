@@ -21,6 +21,6 @@ Lighthouse report on accesibility
 ### Mockup
 ## Usage
 This App is meant to be used as a helpful tool for your weather tracking needs. This will generate the local weather near your destination.
-    ![alt text](assets/img/screenshot.png)
+    ![alt text](assets/img/livesite-screenshot.png)
 ## Credits
 - Josh Tibbetts

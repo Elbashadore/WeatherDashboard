@@ -66,7 +66,7 @@ $(homeSearch).click(geocde);
 function geocde(event){
 pastSearches();
 var cityName = cityNameSelector.val();
-var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
+var geocodeUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&" + "limit=" + limit + "&appid=" + apiKey;
 event.preventDefault();
 fetch(geocodeUrl)
     .then(function(res) {
